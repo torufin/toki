@@ -1,3 +1,263 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>TOKI</title></head>
-<body style="font-family:-apple-system,system-ui,sans-serif;text-align:center;padding:80px 20px"><h1>TOKI</h1><p>Page d'installation en préparation.</p></body></html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOKI</title>
+<meta name="description" content="TOKI : réviser le TOEIC, sans connexion.">
+<meta name="theme-color" content="#f4f3ef">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TOKI">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="app/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" id="ati" href="app/icon-180.png">
+<style>/* style minimal, utilisé avant l'import du pack (ensuite app/style.css prend le relais) */
+:root{--bg:#f4f3ef;--paper:#fff;--ink:#1c1c1e;--ink-2:#5b5b61;--hair:#e3e1db;--sun:#f6d76b;--coral:#f17c6b;--mint:#86d9bd;--sky:#97bef0;--lilac:#c8b7f3;--sun-l:#fcf2cb;--shade:rgba(0,0,0,.08);--on:#1c1c1e}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--paper:#1c1c1f;--ink:#f2f1ec;--ink-2:#b9b8b3;--hair:#303036;--sun-l:#383220}}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+#app{max-width:620px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px 40px}
+h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;letter-spacing:-.02em;line-height:1.15;margin:0 0 .5em}
+.card{background:var(--paper);border:1.5px solid var(--ink);border-radius:18px;padding:18px;margin:14px 0}
+.stacked{box-shadow:5px 5px 0 -1.5px var(--sun),5px 5px 0 0 var(--ink);margin-right:5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;background:var(--ink);color:var(--paper);font-weight:650;padding:12px 20px;border-radius:15px;border:1.5px solid var(--ink);font-size:1rem;text-decoration:none;cursor:pointer}
+.btn.ghost{background:var(--paper);color:var(--ink)}.btn.wide{width:100%;box-sizing:border-box}
+.bar{height:12px;border-radius:9px;border:1.5px solid var(--ink);background:var(--paper);overflow:hidden}.bar i{display:block;height:100%;background:var(--mint)}
+.hide{display:none}.small{font-size:.88rem}.muted{color:var(--ink-2)}
+.hero{display:flex;gap:12px;align-items:center}.bubble{flex:1;background:var(--paper);border:1.5px solid var(--ink);border-radius:18px;padding:12px 14px}
+.mascot{width:84px;height:84px;flex:none}.steps{padding-left:1.2em;margin:.4em 0}.steps li{margin:4px 0}
+.boot{text-align:center;padding:90px 10px}.boot .logo{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-3deg)}}
+.inst{max-width:520px;margin:0 auto}.inst .head{display:flex;align-items:center;gap:14px;margin:18px 0 10px}.inst .head h1{font-size:2rem;margin:0}
+.inst .eyebrow{font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin:0 0 6px}
+.inst .card.dim{opacity:.55;box-shadow:none}.inst .center{text-align:center}.inst .row{display:flex;gap:10px}
+.inst svg{vertical-align:-5px}.inst .btn.big{min-height:58px;font-size:1.1rem;border-radius:16px}
+.guide{list-style:none;padding:0;margin:14px 0 0}.gs{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--hair)}.gs:first-child{border-top:0;padding-top:4px}
+.gn{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);color:#1c1c1e;border:1.5px solid var(--ink);display:grid;place-items:center;font-weight:900}
+.gt{flex:1;min-width:0;font-size:1.05rem;line-height:1.5}.gt p{margin:6px 0 0}
+.key{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;margin:2px 0;border-radius:10px;background:var(--paper);border:1.5px solid var(--ink);font-weight:700;font-size:.95rem;white-space:nowrap}.key span:empty{display:none}
+.appicon{display:flex;width:max-content;flex-direction:column;align-items:center;gap:4px;margin-top:10px;font-size:.8rem;font-weight:600}.appicon svg{width:58px;height:58px;padding:6px;border-radius:14px;background:#f4f3ef;border:1px solid var(--hair)}
+</style>
+<link rel="stylesheet" href="app/style.css">
+<script>
+/* icône d'écran d'accueil dessinée sur place (avant l'import du pack) : trois cartes empilées */
+(function () {
+  try {
+    const c = document.createElement("canvas"); c.width = c.height = 180; const x = c.getContext("2d");
+    x.scale(180 / 512, 180 / 512);
+    x.fillStyle = "#f4f3ef"; x.fillRect(0, 0, 512, 512);
+    x.strokeStyle = "#1c1c1e"; x.lineJoin = "round"; x.lineCap = "round";
+    const card = (cx, cy, rot, col) => {
+      x.save(); x.translate(cx, cy); x.rotate(rot); x.beginPath(); x.roundRect(-125, -125, 250, 250, 66);
+      x.fillStyle = col; x.fill(); x.lineWidth = 16; x.stroke(); x.restore();
+    };
+    card(271, 271, 0.157, "#f17c6b"); card(251, 247, -0.087, "#86d9bd"); card(229, 223, 0, "#f6d76b");
+    x.lineWidth = 24; x.stroke(new Path2D("M150 282 192 160l42 122M166 238h52M315 214v68"));
+    x.beginPath(); x.arc(283, 248, 32, 0, 7); x.stroke();
+    document.getElementById("ati").href = c.toDataURL("image/png");
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<main id="app"><div id="view">
+  <div class="boot"><svg class="logo" width="64" height="64" viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="11" width="25" height="25" rx="7" fill="#f17c6b" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(9 23.5 23.5)"/><rect x="8" y="8" width="25" height="25" rx="7" fill="#86d9bd" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(-5 20.5 20.5)"/><rect x="4" y="5" width="25" height="25" rx="7" fill="#f6d76b" stroke="#1c1c1e" stroke-width="2.4"/></svg>
+  <h2 style="margin-top:14px">TOKI</h2><p class="muted" id="boot-msg">Chargement…</p>
+  <noscript><p>Active JavaScript pour utiliser TOKI.</p></noscript></div>
+</div></main>
+
+<script>
+/* TOKI — import du pack de contenu (version téléphone / lien web)
+   Le pack est un .zip « stocké » (sans compression) : on lit son répertoire central,
+   puis on range chaque fichier dans le cache du navigateur, morceau par morceau.
+   Pack complet (avec media/) : on repart d'un cache propre. Petite mise à jour : on remplace seulement les fichiers fournis. */
+(function () {
+  const ILE = (window.ILE = window.ILE || {});
+  const esc = (x) => String(x ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const PACK_CACHE = "ile-pack";
+  const TYPES = { js: "text/javascript; charset=utf-8", m4a: "audio/mp4", mp3: "audio/mpeg", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", svg: "image/svg+xml", woff2: "font/woff2", json: "application/json", css: "text/css" };
+  ILE.canPack = () => location.protocol.startsWith("http") && "caches" in window && "serviceWorker" in navigator;
+
+  async function readU8(file, start, len) { return new Uint8Array(await file.slice(start, start + len).arrayBuffer()); }
+  const u16 = (b, o) => b[o] | (b[o + 1] << 8);
+  const u32 = (b, o) => (b[o] | (b[o + 1] << 8) | (b[o + 2] << 16) | (b[o + 3] << 24)) >>> 0;
+
+  async function listZip(file) {
+    const tailLen = Math.min(file.size, 66000);
+    const tail = await readU8(file, file.size - tailLen, tailLen);
+    let e = -1;
+    for (let i = tail.length - 22; i >= 0; i--) if (u32(tail, i) === 0x06054b50) { e = i; break; }
+    if (e < 0) throw new Error("Ce fichier n'est pas un pack valide (zip illisible).");
+    const count = u16(tail, e + 10), cdSize = u32(tail, e + 12), cdOff = u32(tail, e + 16);
+    const cd = await readU8(file, cdOff, cdSize);
+    const dec = new TextDecoder();
+    const out = []; let p = 0;
+    for (let k = 0; k < count; k++) {
+      if (u32(cd, p) !== 0x02014b50) throw new Error("Pack abîmé (répertoire central).");
+      const method = u16(cd, p + 10), csize = u32(cd, p + 20), nlen = u16(cd, p + 28), xlen = u16(cd, p + 30), clen = u16(cd, p + 32), loff = u32(cd, p + 42);
+      const name = dec.decode(cd.subarray(p + 46, p + 46 + nlen));
+      p += 46 + nlen + xlen + clen;
+      if (name.endsWith("/") || name.includes("__MACOSX")) continue;
+      if (method !== 0) throw new Error("Pack compressé non pris en charge : utilise le fichier fourni tel quel, sans le décompresser ni le recompresser.");
+      out.push({ name, size: csize, loff });
+    }
+    return out;
+  }
+
+  ILE.importPack = async function (file, onProgress) {
+    const entries = await listZip(file);
+    const base = new URL("./", location.href);
+    const strip = entries.every((x) => x.name.includes("/")) && new Set(entries.map((x) => x.name.split("/")[0])).size === 1 && !["data", "media", "app"].includes(entries[0].name.split("/")[0]);
+    const names = entries.map((x) => (strip ? x.name.slice(x.name.indexOf("/") + 1) : x.name));
+    if (!names.includes("data/lessons.js")) throw new Error("Ce zip ne contient pas les données de TOKI.");
+    const full = names.filter((n) => n.startsWith("media/")).length > 500;
+    if (!full && !ILE.packInfo()) throw new Error("Ce fichier est une petite mise à jour : importe d'abord le pack complet (« Pack TOKI.zip »).");
+    try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) {}
+    if (full) await caches.delete(PACK_CACHE);
+    const cache = await caches.open(PACK_CACHE);
+    let done = 0, bytes = 0; const total = entries.reduce((a, x) => a + x.size, 0);
+    const queue = entries.map((x, i) => [x, names[i]]);
+    async function worker() {
+      while (queue.length) {
+        const [x, name] = queue.shift();
+        const lh = await readU8(file, x.loff, 30);
+        if (u32(lh, 0) !== 0x04034b50) throw new Error("Pack abîmé (" + name + ").");
+        const start = x.loff + 30 + u16(lh, 26) + u16(lh, 28);
+        const blob = file.slice(start, start + x.size);
+        const ext = name.split(".").pop().toLowerCase();
+        await cache.put(new Request(new URL(name, base).href), new Response(blob, { headers: { "Content-Type": TYPES[ext] || "application/octet-stream", "Content-Length": String(x.size) } }));
+        done++; bytes += x.size;
+        onProgress && onProgress(done, entries.length, bytes, total);
+      }
+    }
+    await Promise.all([worker(), worker(), worker(), worker()]);
+    const prev = ILE.packInfo() || {};
+    localStorage.setItem("ile-aux-mots.pack", JSON.stringify(full ? { date: Date.now(), files: entries.length, bytes: total } : Object.assign(prev, { updated: Date.now() })));
+    return { files: entries.length, bytes: total };
+  };
+
+  ILE.packInfo = () => { try { return JSON.parse(localStorage.getItem("ile-aux-mots.pack") || "null"); } catch (e) { return null; } };
+
+  // écran d'installation / d'import : pensé pour quelqu'un qui n'a jamais fait ça (gros boutons, une chose à la fois)
+  const SV = (d) => `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+  const IC = {
+    share: SV('<path d="M12 3v12"/><path d="m7.5 7.5 4.5-4.5 4.5 4.5"/><path d="M8 11H6.5A1.5 1.5 0 0 0 5 12.5v7A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5H16"/>'),
+    menu: SV('<path d="M5 7h14M5 12h14M5 17h9"/>'),
+    plus: SV('<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/>'),
+    file: SV('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/>'),
+    check: SV('<path d="m5 12.5 4.5 4.5L19 7.5"/>'),
+    copy: SV('<rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>'),
+    lock: SV('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  };
+  const LOGO = `<svg width="64" height="64" viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="11" width="25" height="25" rx="7" fill="#f17c6b" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(9 23.5 23.5)"/><rect x="8" y="8" width="25" height="25" rx="7" fill="#86d9bd" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(-5 20.5 20.5)"/><rect x="4" y="5" width="25" height="25" rx="7" fill="#f6d76b" stroke="#1c1c1e" stroke-width="2.4"/><path d="M9.5 22.5 13 12.5l3.5 10M10.8 19h4.4M24.5 16.5v6" stroke="#1c1c1e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="19.5" r="2.6" fill="none" stroke="#1c1c1e" stroke-width="2.2"/></svg>`;
+  ILE.packScreen = function (view, opts = {}) {
+    const ua = navigator.userAgent;
+    const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const otherBrowser = ios && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+    const step1 = ios && !standalone && !opts.update;
+    const step = (n, html, art = "") => `<li class="gs"><span class="gn">${n}</span><div class="gt">${html}${art}</div></li>`;
+    const key = (ic, label) => `<span class="key">${ic}<span>${label}</span></span>`;
+    let body = "";
+    if (opts.update) {
+      body = `<div class="card"><h2>Mettre à jour TOKI</h2><p>Choisis le fichier <b>Mise à jour TOKI.zip</b> (ou un nouveau <b>Pack TOKI.zip</b>). Ta progression est conservée.</p>${pick()}</div><a class="btn ghost wide" href="#/moi">Retour</a>`;
+    } else if (otherBrowser) {
+      body = `<div class="card stacked"><h2>Ouvre ce lien dans Safari</h2><p>L'installation sur iPhone ne marche qu'avec <b>Safari</b> (la boussole bleue).</p>
+        <ol class="guide">${step(1, `Touche ce bouton pour copier le lien :`, `<button class="btn wide" id="cp" style="margin-top:10px">${IC.copy} Copier le lien</button>`)}
+        ${step(2, `Ouvre <b>Safari</b>, touche la barre d'adresse en bas et colle le lien.`)}</ol></div>`;
+    } else if (step1) {
+      body = `<div class="card stacked"><div class="eyebrow">Étape 1 sur 2</div><h2>Mets TOKI sur ton écran d'accueil</h2>
+        <ol class="guide">
+          ${step(1, `En bas de l'écran, touche ${key(IC.menu, "")} puis ${key(IC.share, "Partager")}`, `<p class="small muted">Sur certains iPhone, le bouton ${key(IC.share, "")} est directement en bas, au milieu.</p>`)}
+          ${step(2, `Fais glisser vers le haut si besoin, puis touche ${key(IC.plus, "Sur l'écran d'accueil")}`)}
+          ${step(3, `Touche <b>Ajouter</b>, en haut à droite.`)}
+          ${step(4, `Ferme Safari. Sur ton écran d'accueil, touche la nouvelle icône <b>TOKI</b>.`, `<div class="appicon">${LOGO}<span>TOKI</span></div>`)}
+        </ol></div>
+        <div class="card dim"><div class="eyebrow">Étape 2 sur 2</div><h3 style="margin:0">Choisir le fichier « Pack TOKI.zip »</h3><p class="small muted" style="margin:6px 0 0">Ça se fera dans TOKI, juste après l'étape 1.</p></div>`;
+    } else {
+      body = `<div class="card stacked"><div class="eyebrow">${ios ? "Étape 2 sur 2 · la dernière" : "Une seule étape"}</div><h2>Choisis le fichier « Pack TOKI.zip »</h2>
+        <ol class="guide">
+          ${step(1, `Touche le gros bouton ci-dessous.`)}
+          ${step(2, `Touche ${key(IC.file, "Pack TOKI.zip")}${ios ? ` : il est dans <b>Récents</b> ou <b>Téléchargements</b> (ou dans iCloud Drive).` : "."}`)}
+          ${step(3, `Patiente 2 à 5 minutes${ios ? `, <b>TOKI ouvert et l'écran allumé</b>` : ""}. C'est fini !`)}
+        </ol>${pick()}
+        ${ios ? `<p class="small muted" style="margin-top:12px">Le fichier n'est pas là ? Demande à ce qu'on te le renvoie par AirDrop. Ne l'ouvre pas dans l'app Fichiers : il se décompresserait.</p>` : ""}</div>`;
+    }
+    view.innerHTML = `<div class="inst">
+      <div class="head">${LOGO}<div><h1>TOKI</h1><p class="muted" style="margin:0">Réviser le TOEIC, sans connexion</p></div></div>
+      ${body}
+      <p class="small muted center" style="margin-top:18px">${IC.lock} Tout reste sur ton appareil : pas de compte, rien n'est envoyé sur Internet.</p></div>`;
+    const cp = view.querySelector("#cp");
+    if (cp) cp.onclick = async () => { try { await navigator.clipboard.writeText(location.href.split("#")[0]); cp.innerHTML = `${IC.check} Lien copié`; } catch (e) { prompt("Copie ce lien :", location.href.split("#")[0]); } };
+    const inp = view.querySelector("#pk");
+    if (!inp) return;
+    inp.onchange = async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      const st = view.querySelector("#pk-st"), bar = view.querySelector("#pk-bar"), txt = view.querySelector("#pk-txt"), pct = view.querySelector("#pk-pct");
+      view.querySelector(".pick").classList.add("hide"); st.classList.remove("hide"); txt.textContent = "Lecture du fichier…";
+      try {
+        const r = await ILE.importPack(f, (d, n, b, t) => {
+          const p = Math.floor(100 * b / t); bar.style.width = p + "%"; pct.textContent = p + " %";
+          txt.textContent = `${Math.round(b / 1e6)} Mo sur ${Math.round(t / 1e6)} · laisse TOKI ouvert`;
+        });
+        pct.textContent = "100 %"; txt.textContent = `C'est prêt ! ${r.files} fichiers installés. Démarrage…`;
+        if (ILE.celebrate) ILE.celebrate("Pack importé");
+        setTimeout(async () => { try { await navigator.serviceWorker.ready; } catch (e) {} location.hash = "#/"; location.reload(); }, 1200);
+      } catch (err) {
+        console.error(err);
+        view.querySelector(".pick").classList.remove("hide");
+        txt.innerHTML = `Problème : ${esc(err.message || err)}${/quota|space|storage/i.test(String(err)) ? "<br>Libère un peu d'espace sur l'appareil (environ 2 Go) et réessaie." : ""}`;
+      }
+    };
+    function pick() {
+      return `<label class="btn big wide pick" style="cursor:pointer;margin-top:14px">${IC.file} Choisir le fichier<input type="file" id="pk" hidden></label>
+        <div id="pk-st" class="hide" style="margin-top:16px"><div class="row" style="justify-content:space-between;align-items:baseline"><b>Installation…</b><b id="pk-pct" style="font-size:1.4rem">0 %</b></div>
+        <div class="bar" style="margin-top:6px"><i id="pk-bar" style="width:0"></i></div><p class="small muted" id="pk-txt" style="margin-top:8px"></p></div>`;
+    }
+  };
+})();
+</script>
+<script src="app/js/art.js"></script>
+<script src="app/js/core.js"></script>
+<script src="app/js/player.js"></script>
+<script src="app/js/views1.js"></script>
+<script src="app/js/views2.js"></script>
+<script>
+(async function boot() {
+  const httpOK = location.protocol.startsWith("http") && "serviceWorker" in navigator;
+  async function needPack() {
+    if (httpOK) {
+      try { await navigator.serviceWorker.register("sw.js"); } catch (err) {}
+      document.querySelectorAll(".topbar, nav.tabs").forEach((x) => x.remove());
+      ILE.packScreen(document.getElementById("view"));
+      return true;
+    }
+    document.getElementById("boot-msg").innerHTML = "Impossible de charger les données. Vérifie que les dossiers <b>app</b>, <b>data</b> et <b>media</b> sont bien à côté de ce fichier.";
+    return false;
+  }
+  if (!(window.ILE && ILE.S && window.ART)) { await needPack(); return; }
+  const { S } = ILE;
+  S.load(); ILE.applyTheme();
+  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { ILE.applyTheme(); ILE.render(); });
+  try {
+    const [lessons, bank] = await Promise.all([ILE.load("lessons"), ILE.load("bank"), ILE.load("vocab")]);
+    lessons.byId = Object.fromEntries(lessons.list.map((l) => [l.id, l]));
+    bank.byId = {}; bank.byPart = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] }; bank.byLesson = {};
+    for (const g of bank.groups) {
+      bank.byId[g.id] = g; bank.byPart[g.part || 0].push(g);
+      const ls = new Set([g.lesson, ...g.questions.map((q) => q.lesson)].filter(Boolean));
+      ls.forEach((l) => (bank.byLesson[l] = bank.byLesson[l] || []).push(g));
+    }
+    bank.trainingById = Object.fromEntries(bank.trainings.map((t) => [t.id, t]));
+  } catch (e) {
+    if (await needPack()) return;
+    throw e;
+  }
+  ILE.render();
+  if (httpOK) navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+</script>
+</body>
+</html>
