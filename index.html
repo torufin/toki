@@ -180,7 +180,7 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
       body = `<div class="card stacked"><div class="eyebrow">${ios ? "Étape 2 sur 2 · la dernière" : "Une seule étape"}</div><h2>Choisis le fichier « Pack TOKI.zip »</h2>
         <ol class="guide">
           ${step(1, `Touche le gros bouton ci-dessous.`)}
-          ${step(2, `Touche ${key(IC.file, "Pack TOKI.zip")}${ios ? ` : il est dans <b>Récents</b> ou <b>Téléchargements</b> (ou dans iCloud Drive).` : "."}`)}
+          ${step(2, `Touche ${key(IC.file, "Pack TOKI.zip")}${ios ? `<p class="small muted">Tu ne le vois pas ? Écris <b>TOKI</b> dans la barre <b>Rechercher</b> en haut : il apparaît.</p>` : "."}`)}
           ${step(3, `Patiente 2 à 5 minutes${ios ? `, <b>TOKI ouvert et l'écran allumé</b>` : ""}. C'est fini !`)}
         </ol>${pick()}
         ${ios ? `<p class="small muted" style="margin-top:12px">Le fichier n'est pas là ? Demande à ce qu'on te le renvoie par AirDrop. Ne l'ouvre pas dans l'app Fichiers : il se décompresserait.</p>` : ""}</div>`;
@@ -212,7 +212,7 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
       }
     };
     function pick() {
-      return `<label class="btn big wide pick" style="cursor:pointer;margin-top:14px">${IC.file} Choisir le fichier<input type="file" id="pk" hidden></label>
+      return `<label class="btn big wide pick" style="cursor:pointer;margin-top:14px">${IC.file} Choisir le fichier<input type="file" id="pk" accept=".zip,application/zip" hidden></label>
         <div id="pk-st" class="hide" style="margin-top:16px"><div class="row" style="justify-content:space-between;align-items:baseline"><b>Installation…</b><b id="pk-pct" style="font-size:1.4rem">0 %</b></div>
         <div class="bar" style="margin-top:6px"><i id="pk-bar" style="width:0"></i></div><p class="small muted" id="pk-txt" style="margin-top:8px"></p></div>`;
     }
