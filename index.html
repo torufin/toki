@@ -186,7 +186,7 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
         ${ios ? `<p class="small muted" style="margin-top:12px">Le fichier n'est pas là ? Demande à ce qu'on te le renvoie par AirDrop. Ne l'ouvre pas dans l'app Fichiers : il se décompresserait.</p>` : ""}</div>`;
     }
     view.innerHTML = `<div class="inst">
-      <div class="head">${LOGO}<div><h1>TOKI</h1><p class="muted" style="margin:0">Réviser le TOEIC, sans connexion</p></div></div>
+      ${opts.update ? "" : `<div class="head">${LOGO}<div><h1>TOKI</h1><p class="muted" style="margin:0">Réviser le TOEIC, sans connexion</p></div></div>`}
       ${body}
       <p class="small muted center" style="margin-top:18px">${IC.lock} Tout reste sur ton appareil : pas de compte, rien n'est envoyé sur Internet.</p></div>`;
     const cp = view.querySelector("#cp");
@@ -240,7 +240,7 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
   if (!(window.ILE && ILE.S && window.ART)) { await needPack(); return; }
   const { S } = ILE;
   S.load(); ILE.applyTheme();
-  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { ILE.applyTheme(); ILE.render(); });
+  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => { if ((S.root.device.theme || "auto") === "auto") ILE.applyTheme(); });
   try {
     const [lessons, bank] = await Promise.all([ILE.load("lessons"), ILE.load("bank"), ILE.load("vocab")]);
     lessons.byId = Object.fromEntries(lessons.list.map((l) => [l.id, l]));
