@@ -38,6 +38,8 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
 .gn{flex:none;width:32px;height:32px;border-radius:50%;background:var(--sun);color:#1c1c1e;border:1.5px solid var(--ink);display:grid;place-items:center;font-weight:900}
 .gt{flex:1;min-width:0;font-size:1.05rem;line-height:1.5}.gt p{margin:6px 0 0}
 .key{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;margin:2px 0;border-radius:10px;background:var(--paper);border:1.5px solid var(--ink);font-weight:700;font-size:.95rem;white-space:nowrap}.key span:empty{display:none}
+.fig{display:block;margin-top:10px;max-width:300px}.fig svg{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--hair)}
+.need{background:var(--sun-l);border-radius:12px;padding:10px 12px;margin:2px 0 4px;font-size:.95rem;line-height:1.45}
 .appicon{display:flex;width:max-content;flex-direction:column;align-items:center;gap:4px;margin-top:10px;font-size:.8rem;font-weight:600}.appicon svg{width:58px;height:58px;padding:6px;border-radius:14px;background:#f4f3ef;border:1px solid var(--hair)}
 </style>
 <link rel="stylesheet" href="app/style.css">
@@ -152,6 +154,41 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
     lock: SV('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
   };
   const LOGO = `<svg width="64" height="64" viewBox="0 0 40 40" aria-hidden="true"><rect x="11" y="11" width="25" height="25" rx="7" fill="#f17c6b" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(9 23.5 23.5)"/><rect x="8" y="8" width="25" height="25" rx="7" fill="#86d9bd" stroke="#1c1c1e" stroke-width="2.4" transform="rotate(-5 20.5 20.5)"/><rect x="4" y="5" width="25" height="25" rx="7" fill="#f6d76b" stroke="#1c1c1e" stroke-width="2.4"/><path d="M9.5 22.5 13 12.5l3.5 10M10.8 19h4.4M24.5 16.5v6" stroke="#1c1c1e" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="19.5" r="2.6" fill="none" stroke="#1c1c1e" stroke-width="2.2"/></svg>`;
+  // petits dessins des écrans de l'iPhone (texte vectoriel : léger, net, et publiable sans images)
+  const F = (h, inner) => `<span class="fig"><svg viewBox="0 0 300 ${h}" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,system-ui,sans-serif" aria-hidden="true"><rect width="300" height="${h}" fill="#f2f2f7"/>${inner}</svg></span>`;
+  const RING = 'fill="rgba(229,72,77,.13)" stroke="#e5484d" stroke-width="3"';
+  const T = (x, y, txt, o = "") => `<text x="${x}" y="${y}" ${/font-size=/.test(o) ? "" : 'font-size="14"'} ${/fill=/.test(o) ? "" : 'fill="#1c1c1e"'} ${o}>${txt}</text>`;
+  const FIG = {
+    bar: F(86, `<circle cx="32" cy="43" r="21" fill="#fff" stroke="#d1d1d6"/><path d="M35 35l-8 8 8 8" fill="none" stroke="#8e8e93" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="62" y="22" width="176" height="42" rx="21" fill="#fff" stroke="#d1d1d6"/><path d="M80 36h14M80 43h14M80 50h9" stroke="#1c1c1e" stroke-width="2.4" stroke-linecap="round"/>
+      ${T(160, 48, "torufin.github.io", 'font-size="13" text-anchor="middle"')}
+      <circle cx="268" cy="43" r="21" fill="#fff" stroke="#d1d1d6"/><rect x="259" y="35" width="12" height="12" rx="3" fill="none" stroke="#1c1c1e" stroke-width="2"/><rect x="264" y="40" width="12" height="12" rx="3" fill="#fff" stroke="#1c1c1e" stroke-width="2"/>
+      <circle cx="87" cy="43" r="17" ${RING}/>`),
+    menu: F(132, `<rect x="40" y="10" width="220" height="112" rx="18" fill="#fff" stroke="#d1d1d6"/>
+      <path d="M66 21v12M61.5 25.5 66 21l4.5 4.5M61 29h-3v13h16V29h-3" fill="none" stroke="#1c1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>${T(88, 37, "Partager", 'font-size="15"')}
+      <path d="M61 57h10v17l-5-4-5 4z" fill="none" stroke="#1c1c1e" stroke-width="2" stroke-linejoin="round"/>${T(88, 71, "Ajouter à Signets", 'font-size="15"')}
+      <path d="M59 92h8l2 2v12h-10zM69 94h8v12h-8" fill="none" stroke="#1c1c1e" stroke-width="2" stroke-linejoin="round"/>${T(88, 105, "Ajouter un signet à…", 'font-size="15"')}
+      <rect x="47" y="14" width="206" height="38" rx="12" ${RING}/>`),
+    more: F(112, `<g fill="#e5e5ea"><circle cx="38" cy="42" r="24"/><circle cx="104" cy="42" r="24"/><circle cx="170" cy="42" r="24"/><circle cx="250" cy="42" r="24"/></g>
+      <g fill="none" stroke="#1c1c1e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="31" y="35" width="11" height="13" rx="2"/><path d="M36 35v-3h10v13h-4"/><path d="M99 31h10v21l-5-4-5 4z"/><circle cx="163" cy="44" r="5"/><circle cx="177" cy="44" r="5"/><path d="M168 44h4"/><path d="M242 39l8 8 8-8"/></g>
+      ${T(38, 88, "Copier", 'font-size="11" text-anchor="middle"')}${T(104, 88, "Signets", 'font-size="11" text-anchor="middle"')}${T(170, 88, "Lecture", 'font-size="11" text-anchor="middle"')}${T(250, 88, "En voir plus", 'font-size="11" text-anchor="middle"')}
+      <rect x="206" y="12" width="88" height="88" rx="16" ${RING}/>`),
+    home: F(132, `<rect x="16" y="10" width="268" height="112" rx="18" fill="#fff" stroke="#d1d1d6"/>
+      <path d="M33 22l3 6 6.5 1-4.7 4.6 1.1 6.4L33 37l-5.9 3 1.1-6.4-4.7-4.6 6.5-1z" fill="none" stroke="#1c1c1e" stroke-width="1.8" stroke-linejoin="round"/>${T(56, 36, "Ajouter aux favoris", 'font-size="15"')}
+      <rect x="26" y="57" width="13" height="16" rx="2" fill="none" stroke="#1c1c1e" stroke-width="2"/><circle cx="38" cy="72" r="4" fill="#fff" stroke="#1c1c1e" stroke-width="2"/>${T(56, 70, "Rechercher dans la page", 'font-size="15"')}
+      <rect x="25" y="91" width="16" height="16" rx="4" fill="none" stroke="#1c1c1e" stroke-width="2"/><path d="M33 95v8M29 99h8" stroke="#1c1c1e" stroke-width="2" stroke-linecap="round"/>${T(56, 104, "Sur l'écran d'accueil", 'font-size="15" font-weight="600"')}
+      <rect x="20" y="82" width="260" height="36" rx="12" ${RING}/>`),
+    add: F(132, `<circle cx="30" cy="34" r="17" fill="#fff" stroke="#d1d1d6"/><path d="M24 28l12 12M36 28 24 40" stroke="#1c1c1e" stroke-width="2" stroke-linecap="round"/>
+      ${T(132, 39, "Sur l'écran d'accueil", 'font-size="13" font-weight="600" text-anchor="middle"')}
+      <rect x="214" y="18" width="74" height="32" rx="16" fill="#0a84ff"/>${T(251, 39, "Ajouter", 'font-size="13" font-weight="600" text-anchor="middle" fill="#fff"')}
+      <rect x="208" y="12" width="86" height="44" rx="22" ${RING}/>
+      <rect x="0" y="66" width="300" height="66" fill="#fff"/><rect x="18" y="76" width="44" height="44" rx="11" fill="#f6d76b" stroke="#1c1c1e" stroke-width="2"/>
+      <text x="40" y="104" font-size="17" font-weight="800" text-anchor="middle" fill="#1c1c1e">Aa</text>${T(76, 96, "TOKI", 'font-size="15"')}<text x="76" y="114" font-size="11" fill="#8e8e93">torufin.github.io</text>`),
+    file: F(150, `<rect x="16" y="14" width="268" height="34" rx="17" fill="#e5e5ea"/><circle cx="35" cy="30" r="6" fill="none" stroke="#8e8e93" stroke-width="2"/><path d="M39.5 34.5 44 39" stroke="#8e8e93" stroke-width="2" stroke-linecap="round"/>${T(54, 36, "TOKI", 'font-size="15"')}
+      <path d="M44 62h28l12 12v40H44z" fill="#fff" stroke="#c7c7cc" stroke-width="1.5" stroke-linejoin="round"/><path d="M72 62v12h12" fill="none" stroke="#c7c7cc" stroke-width="1.5"/><text x="64" y="106" font-size="9" fill="#8e8e93" text-anchor="middle">ZIP</text>
+      ${T(64, 134, "Pack TOKI.zip", 'font-size="12" text-anchor="middle"')}
+      <rect x="20" y="54" width="88" height="90" rx="14" ${RING}/>`),
+  };
   ILE.packScreen = function (view, opts = {}) {
     const ua = navigator.userAgent;
     const ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -162,27 +199,30 @@ h1,h2,h3{font-family:ui-rounded,"Nunito",system-ui,sans-serif;font-weight:900;le
     const key = (ic, label) => `<span class="key">${ic}<span>${label}</span></span>`;
     let body = "";
     if (opts.update) {
-      body = `<div class="card"><h2>Mettre à jour TOKI</h2><p>Choisis le fichier <b>Mise à jour TOKI.zip</b> (ou un nouveau <b>Pack TOKI.zip</b>). Ta progression est conservée.</p>${pick()}</div><a class="btn ghost wide" href="#/moi">Retour</a>`;
+      body = `<div class="card"><h2>Mettre à jour TOKI</h2><p>Choisis le nouveau fichier <b>Pack TOKI.zip</b>. Ta progression est conservée.</p>${pick()}</div><a class="btn ghost wide" href="#/moi">Retour</a>`;
     } else if (otherBrowser) {
       body = `<div class="card stacked"><h2>Ouvre ce lien dans Safari</h2><p>L'installation sur iPhone ne marche qu'avec <b>Safari</b> (la boussole bleue).</p>
         <ol class="guide">${step(1, `Touche ce bouton pour copier le lien :`, `<button class="btn wide" id="cp" style="margin-top:10px">${IC.copy} Copier le lien</button>`)}
         ${step(2, `Ouvre <b>Safari</b>, touche la barre d'adresse en bas et colle le lien.`)}</ol></div>`;
     } else if (step1) {
       body = `<div class="card stacked"><div class="eyebrow">Étape 1 sur 2</div><h2>Mets TOKI sur ton écran d'accueil</h2>
+        <p class="need">Il te faut le fichier <b>Pack TOKI.zip</b> que je t'ai envoyé (reçu par AirDrop ? touche <b>Accepter</b>, sans l'ouvrir) et environ <b>2 Go</b> de place libre.</p>
         <ol class="guide">
-          ${step(1, `En bas de l'écran, touche ${key(IC.menu, "")} puis ${key(IC.share, "Partager")}`, `<p class="small muted">Sur certains iPhone, le bouton ${key(IC.share, "")} est directement en bas, au milieu.</p>`)}
-          ${step(2, `Fais glisser vers le haut si besoin, puis touche ${key(IC.plus, "Sur l'écran d'accueil")}`)}
-          ${step(3, `Touche <b>Ajouter</b>, en haut à droite.`)}
-          ${step(4, `Ferme Safari. Sur ton écran d'accueil, touche la nouvelle icône <b>TOKI</b>.`, `<div class="appicon">${LOGO}<span>TOKI</span></div>`)}
+          ${step(1, `En bas de l'écran, touche ${key(IC.menu, "")}`, FIG.bar + `<p class="small muted">Sur certains iPhone, le bouton ${key(IC.share, "")} est directement en bas, au milieu : touche-le et passe à l'étape 3.</p>`)}
+          ${step(2, `Touche ${key(IC.share, "Partager")}`, FIG.menu)}
+          ${step(3, `Touche <b>En voir plus</b>.`, FIG.more + `<p class="small muted">Pas de « En voir plus » ? Fais glisser la liste vers le haut.</p>`)}
+          ${step(4, `Touche ${key(IC.plus, "Sur l'écran d'accueil")}`, FIG.home)}
+          ${step(5, `Touche <b>Ajouter</b>, en haut à droite. Ne change rien d'autre.`, FIG.add)}
+          ${step(6, `Ton écran d'accueil s'affiche. Touche la nouvelle icône <b>TOKI</b>.`, `<div class="appicon">${LOGO}<span>TOKI</span></div>`)}
         </ol></div>
         <div class="card dim"><div class="eyebrow">Étape 2 sur 2</div><h3 style="margin:0">Choisir le fichier « Pack TOKI.zip »</h3><p class="small muted" style="margin:6px 0 0">Ça se fera dans TOKI, juste après l'étape 1.</p></div>`;
     } else {
       body = `<div class="card stacked"><div class="eyebrow">${ios ? "Étape 2 sur 2 · la dernière" : "Une seule étape"}</div><h2>Choisis le fichier « Pack TOKI.zip »</h2>
         <ol class="guide">
-          ${step(1, `Touche le gros bouton ci-dessous.`)}
-          ${step(2, `Touche ${key(IC.file, "Pack TOKI.zip")}${ios ? `<p class="small muted">Tu ne le vois pas ? Écris <b>TOKI</b> dans la barre <b>Rechercher</b> en haut : il apparaît.</p>` : "."}`)}
+          ${step(1, `Touche ce bouton :`, pick())}
+          ${step(2, `Dans la liste, touche ${key(IC.file, "Pack TOKI.zip")}${ios ? "" : "."}`, ios ? FIG.file + `<p class="small muted">Tu ne le vois pas ? Touche la barre <b>Rechercher</b> en haut et écris <b>TOKI</b> : il apparaît.</p>` : "")}
           ${step(3, `Patiente 2 à 5 minutes${ios ? `, <b>TOKI ouvert et l'écran allumé</b>` : ""}. C'est fini !`)}
-        </ol>${pick()}
+        </ol>
         ${ios ? `<p class="small muted" style="margin-top:12px">Le fichier n'est pas là ? Demande à ce qu'on te le renvoie par AirDrop. Ne l'ouvre pas dans l'app Fichiers : il se décompresserait.</p>` : ""}</div>`;
     }
     view.innerHTML = `<div class="inst">
